@@ -43,14 +43,15 @@ class _AudioRoomState extends State<TypedAudioRoomV2> {
   }
 
   Future<void> initPlatformState() async {
-    ws = WebSocketJanusTransport(url: servermap['servercheap']);
+    ws = WebSocketJanusTransport(url: "ws://${servermap['servercheap']}:8188");
     client = JanusClient(
-        withCredentials: true,
-        isUnifiedPlan: true,
-        stringIds: false,
-        apiSecret: "SecureIt",
-        transport: ws,
-        iceServers: [RTCIceServer(urls: "stun:stun1.l.google.com:19302", username: "", credential: "")]);
+      withCredentials: true,
+      isUnifiedPlan: true,
+      stringIds: false,
+      apiSecret: "SecureIt",
+      transport: ws,
+      iceServers: [RTCIceServer(urls: "turn:${servermap['servercheap']}:3478", username: "1709715261:thisistes", credential: "9cYIP2mjvT/M4Uz5yBhF7+v1A50=")],
+    );
     session = await client?.createSession();
     pluginHandle = await session?.attach<JanusAudioBridgePlugin>();
     // List<MediaDeviceInfo> devices =
