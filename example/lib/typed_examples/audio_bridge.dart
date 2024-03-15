@@ -50,7 +50,14 @@ class _AudioRoomState extends State<TypedAudioRoomV2> {
       stringIds: false,
       apiSecret: "SecureIt",
       transport: ws,
-      iceServers: [RTCIceServer(urls: "turn:${servermap['servercheap']}:3478", username: "1709715261:thisistes", credential: "9cYIP2mjvT/M4Uz5yBhF7+v1A50=")],
+      iceServers: [
+        RTCIceServer(
+          urls: "turn:${servermap['servercheap']}:3478",
+          // urls: "turn:34.64.149.103:3478",
+          username: "1709715261:thisistest",
+          credential: "9cYIP2mjvT/M4Uz5yBhF7+v1A50=",
+        )
+      ],
     );
     session = await client?.createSession();
     pluginHandle = await session?.attach<JanusAudioBridgePlugin>();
@@ -59,7 +66,7 @@ class _AudioRoomState extends State<TypedAudioRoomV2> {
     // MediaDeviceInfo microphone =
     //     devices.firstWhere((element) => element.kind == "audioinput");
     await pluginHandle?.initializeMediaDevices(mediaConstraints: {"audio": true, "video": false});
-    pluginHandle?.joinRoom(myRoom, display: "Shivansh");
+    pluginHandle?.joinRoom(myRoom, display: "Shivansh", pin: "testpin");
 
     // await Helper.selectAudioInput(microphone.deviceId);
 
